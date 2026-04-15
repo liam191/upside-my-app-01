@@ -26,4 +26,15 @@ jobs:
       - name: Run tests
         run: pytest --tb=short -q
 
+  docker-build:
+    name: Docker Build
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t devops-demo-api:${{ github.sha }} .
+
 # TODO: Install dependencies and run tests
